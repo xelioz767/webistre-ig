@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Survivors Haven</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --grey-deep: #2c2f33;
+      --grey-mid: #4a5056;
+      --grey-soft: #8b9199;
+      --grey-light: #d0d5db;
+      --grey-pale: #eceef1;
+      --blue-light: #a8c8d8;
+      --blue-soft: #c5dde8;
+      --blue-mist: #dff0f7;
+      --white: #f9fbfc;
+      --white-pure: #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', sans-serif; background: var(--white); color: var(--grey-deep); overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; background: rgba(249,251,252,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--grey-light); }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--grey-deep); letter-spacing: 0.04em; }
+    .nav-logo span { color: var(--blue-light); }
+    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 0.82rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-mid); transition: color 0.3s; }
+    .nav-links a:hover { color: var(--blue-light); }
+    .nav-cta { padding: 0.55rem 1.6rem; border: 1px solid var(--blue-light); border-radius: 2px; background: transparent; color: var(--blue-light); font-family: 'Jost', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+    .nav-cta:hover { background: var(--blue-light); color: #fff; }
+
+    .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; padding: 8rem 4rem 4rem; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 70% 40%, var(--blue-mist) 0%, transparent 65%), radial-gradient(ellipse 50% 70% at 10% 80%, var(--grey-pale) 0%, transparent 60%), var(--white); }
+    .hero-lines { position: absolute; inset: 0; pointer-events: none; }
+    .hero-lines::before { content: ''; position: absolute; top: 15%; right: 8%; width: 340px; height: 340px; border: 1px solid var(--blue-soft); border-radius: 50%; animation: slowSpin 30s linear infinite; }
+    .hero-lines::after { content: ''; position: absolute; top: 22%; right: 14%; width: 200px; height: 200px; border: 1px solid var(--grey-light); border-radius: 50%; animation: slowSpin 20s linear infinite reverse; }
+    @keyframes slowSpin { to { transform: rotate(360deg); } }
+    .hero-content { position: relative; max-width: 680px; animation: fadeUp 1s ease 0.2s both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-tag { display: inline-block; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue-light); border-left: 2px solid var(--blue-light); padding-left: 0.75rem; margin-bottom: 1.8rem; }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.1; color: var(--grey-deep); margin-bottom: 1.5rem; }
+    .hero h1 em { font-style: italic; color: var(--blue-light); }
+    .hero p { font-size: 1.05rem; font-weight: 300; line-height: 1.8; color: var(--grey-mid); max-width: 500px; margin-bottom: 2.8rem; }
+    .hero-btns { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+    .btn-primary { padding: 0.9rem 2.4rem; background: var(--grey-deep); color: #fff; border: none; border-radius: 2px; font-family: 'Jost', sans-serif; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+    .btn-primary:hover { background: var(--blue-light); }
+    .btn-secondary { padding: 0.9rem 2.4rem; background: transparent; color: var(--grey-mid); border: 1px solid var(--grey-light); border-radius: 2px; font-family: 'Jost', sans-serif; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+    .btn-secondary:hover { border-color: var(--blue-light); color: var(--blue-light); }
+    .hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey-soft); }
+    .scroll-line { width: 1px; height: 40px; background: var(--grey-light); animation: scrollPulse 2s ease-in-out infinite; }
+    @keyframes scrollPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+    .pillars { padding: 6rem 4rem; background: var(--grey-deep); }
+    .section-label { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--blue-light); margin-bottom: 0.8rem; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; color: #fff; margin-bottom: 3.5rem; line-height: 1.2; }
+    .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2px; }
+    .pillar { padding: 2.8rem 2rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); transition: all 0.4s; position: relative; overflow: hidden; }
+    .pillar::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--blue-light); transform: scaleX(0); transition: transform 0.4s; }
+    .pillar:hover { background: rgba(168,200,216,0.08); }
+    .pillar:hover::after { transform: scaleX(1); }
+    .pillar-icon { font-size: 1.8rem; margin-bottom: 1.2rem; }
+    .pillar h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: #fff; margin-bottom: 0.8rem; }
+    .pillar p { font-size: 0.88rem; font-weight: 300; line-height: 1.75; color: var(--grey-soft); }
+
+    .about { padding: 7rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-visual { position: relative; height: 420px; }
+    .about-card { position: absolute; background: #fff; border: 1px solid var(--grey-light); border-radius: 4px; box-shadow: 0 8px 40px rgba(44,47,51,0.08); padding: 1.8rem; }
+    .about-card.main { top: 0; left: 0; right: 60px; bottom: 60px; background: var(--blue-mist); border-color: var(--blue-soft); display: flex; flex-direction: column; justify-content: flex-end; }
+    .about-card.main .big-num { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; color: var(--blue-light); line-height: 1; }
+    .about-card.main .big-label { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey-mid); }
+    .about-card.float { top: 50px; right: 0; width: 180px; text-align: center; }
+    .about-card.float .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .about-card.float .label { font-size: 0.78rem; font-weight: 300; color: var(--grey-mid); line-height: 1.5; }
+    .about-card.float2 { bottom: 0; right: 30px; left: 40px; display: flex; align-items: center; gap: 1rem; }
+    .about-card.float2 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--blue-light); flex-shrink: 0; }
+    .about-card.float2 .text { font-size: 0.82rem; color: var(--grey-mid); font-weight: 300; line-height: 1.5; }
+    .about-text .section-title { color: var(--grey-deep); }
+    .about-text p { font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--grey-mid); margin-bottom: 1.2rem; }
+    .about-divider { width: 48px; height: 1px; background: var(--blue-light); margin: 2rem 0; }
+
+    .resources { padding: 6rem 4rem; background: var(--grey-pale); }
+    .resources-header { text-align: center; margin-bottom: 3.5rem; }
+    .resources-header .section-title { color: var(--grey-deep); }
+    .resources-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .resource-card { background: #fff; border: 1px solid var(--grey-light); border-radius: 4px; padding: 2.2rem; transition: all 0.35s; cursor: pointer; }
+    .resource-card:hover { border-color: var(--blue-light); box-shadow: 0 12px 40px rgba(168,200,216,0.2); transform: translateY(-4px); }
+    .resource-tag { display: inline-block; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; background: var(--blue-mist); color: var(--blue-light); padding: 0.3rem 0.8rem; border-radius: 2px; margin-bottom: 1.2rem; font-weight: 500; }
+    .resource-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; color: var(--grey-deep); margin-bottom: 0.7rem; }
+    .resource-card p { font-size: 0.87rem; font-weight: 300; line-height: 1.75; color: var(--grey-mid); margin-bottom: 1.4rem; }
+    .resource-link { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue-light); font-weight: 500; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; transition: gap 0.3s; }
+    .resource-card:hover .resource-link { gap: 0.9rem; }
+
+    .community { padding: 6rem 4rem; background: #fff; text-align: center; }
+    .community .section-title { color: var(--grey-deep); margin-bottom: 1rem; }
+    .community > p { font-size: 1rem; font-weight: 300; line-height: 1.8; color: var(--grey-mid); max-width: 540px; margin: 0 auto 3rem; }
+    .testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 3.5rem; }
+    .testimonial { background: var(--grey-pale); border: 1px solid var(--grey-light); border-radius: 4px; padding: 2rem; text-align: left; position: relative; }
+    .testimonial::before { content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--blue-light); line-height: 1; position: absolute; top: 1rem; left: 1.5rem; opacity: 0.4; }
+    .testimonial p { font-size: 0.9rem; font-weight: 300; line-height: 1.8; color: var(--grey-mid); margin-bottom: 1.2rem; padding-top: 1.5rem; }
+    .testimonial-name { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-deep); font-weight: 500; }
+    .community-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+    .contact { padding: 6rem 4rem; background: var(--grey-deep); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .contact-text .section-title { color: #fff; }
+    .contact-text p { font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--grey-soft); margin-bottom: 2rem; }
+    .contact-detail { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .contact-detail span { font-size: 0.88rem; color: var(--grey-light); font-weight: 300; }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey-soft); }
+    .form-group input, .form-group textarea, .form-group select { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 2px; padding: 0.85rem 1rem; color: #fff; font-family: 'Jost', sans-serif; font-size: 0.88rem; font-weight: 300; transition: border-color 0.3s; outline: none; }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--blue-light); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-group select option { background: var(--grey-deep); }
+    .btn-submit { padding: 1rem 2.5rem; align-self: flex-start; background: var(--blue-light); color: var(--grey-deep); border: none; border-radius: 2px; font-family: 'Jost', sans-serif; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+    .btn-submit:hover { background: #fff; }
+
+    footer { background: #1e2124; padding: 2.5rem 4rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--grey-light); font-weight: 600; }
+    .footer-logo span { color: var(--blue-light); }
+    footer p { font-size: 0.78rem; color: var(--grey-soft); font-weight: 300; }
+    .footer-links { display: flex; gap: 1.8rem; }
+    .footer-links a { font-size: 0.75rem; color: var(--grey-soft); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--blue-light); }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero, .pillars, .resources, .community { padding: 4rem 1.5rem; }
+      .hero { padding-top: 7rem; }
+      .about, .contact { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2.5rem; }
+      .about-visual { height: 260px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Survivors<span> Haven</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta">Get Support</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <div class="hero-tag">You Are Not Alone</div>
+    <h1>A safe place to<br/><em>heal, connect,</em><br/>and rebuild.</h1>
+    <p>Survivors Haven is a compassionate community dedicated to supporting survivors on their journey toward healing, empowerment, and hope.</p>
+    <div class="hero-btns">
+      <button class="btn-primary">Find Support</button>
+      <button class="btn-secondary">Our Resources</button>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
+</section>
+
+<section class="pillars">
+  <div class="section-label">What We Offer</div>
+  <div class="section-title">Built on compassion,<br/>driven by community.</div>
+  <div class="pillars-grid">
+    <div class="pillar"><div class="pillar-icon">🛡️</div><h3>Safe Space</h3><p>A judgment-free environment where your story is heard, respected, and held with care.</p></div>
+    <div class="pillar"><div class="pillar-icon">🤝</div><h3>Peer Support</h3><p>Connect with others who understand your journey. Strength grows when we walk together.</p></div>
+    <div class="pillar"><div class="pillar-icon">📚</div><h3>Resources</h3><p>Curated guides, hotlines, and tools to help you navigate every step of recovery.</p></div>
+    <div class="pillar"><div class="pillar-icon">💙</div><h3>Professional Help</h3><p>Pathways to licensed counselors, therapists, and crisis support specialists near you.</p></div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-visual">
+    <div class="about-card main"><div class="big-num">7,000+</div><div class="big-label">Survivors supported</div></div>
+    <div class="about-card float"><div class="icon">🌿</div><div class="label">Healing at your own pace</div></div>
+    <div class="about-card float2"><div class="dot"></div><div class="text">Available 24/7 for crisis support and connection</div></div>
+  </div>
+  <div class="about-text">
+    <div class="section-label">Our Mission</div>
+    <div class="section-title">A haven built for survivors, by survivors.</div>
+    <p>Survivors Haven was founded on the belief that no one should navigate trauma alone. We are a community-led organisation created to fill the gap between crisis and recovery — offering real support, real resources, and real human connection.</p>
+    <p>Whether you're just beginning to find your footing or well along your healing journey, there is a place for you here. Every story matters. Every person deserves to be seen.</p>
+    <div class="about-divider"></div>
+    <button class="btn-primary">Learn More About Us</button>
+  </div>
+</section>
+
+<section class="resources" id="resources">
+  <div class="resources-header">
+    <div class="section-label">Resources &amp; Guides</div>
+    <div class="section-title">Tools for every step of your journey.</div>
+  </div>
+  <div class="resources-grid">
+    <div class="resource-card"><div class="resource-tag">Crisis Support</div><h3>Immediate Help</h3><p>In a crisis right now? Access emergency contacts, hotlines, and instant support options available around the clock.</p><a class="resource-link" href="#">Access Now →</a></div>
+    <div class="resource-card"><div class="resource-tag">Recovery</div><h3>Healing Toolkit</h3><p>Practical resources including breathing exercises, grounding techniques, journaling prompts, and self-care guides.</p><a class="resource-link" href="#">Explore →</a></div>
+    <div class="resource-card"><div class="resource-tag">Legal &amp; Rights</div><h3>Know Your Rights</h3><p>Understand your legal options and rights as a survivor. Find local advocacy organisations and legal aid resources.</p><a class="resource-link" href="#">Learn More →</a></div>
+    <div class="resource-card"><div class="resource-tag">For Allies</div><h3>Supporting a Survivor</h3><p>Guidance for friends and family on how to show up for someone they love — with compassion and boundaries.</p><a class="resource-link" href="#">Read Guide →</a></div>
+    <div class="resource-card"><div class="resource-tag">Community</div><h3>Support Groups</h3><p>Find online and in-person support groups moderated by trained facilitators who share lived experience.</p><a class="resource-link" href="#">Find a Group →</a></div>
+    <div class="resource-card"><div class="resource-tag">Professional Care</div><h3>Find a Therapist</h3><p>Search our directory of trauma-informed therapists and counsellors, filtered by location and specialisation.</p><a class="resource-link" href="#">Search Directory →</a></div>
+  </div>
+</section>
+
+<section class="community" id="community">
+  <div class="section-label">Community Voices</div>
+  <div class="section-title">Words from our community.</div>
+  <p>Real stories from people who found hope, connection, and strength through Survivors Haven.</p>
+  <div class="testimonials">
+    <div class="testimonial"><p>Finding this community was the turning point for me. I felt seen for the first time in years. The support here is genuine and the people truly care.</p><div class="testimonial-name">— Anonymous Member</div></div>
+    <div class="testimonial"><p>The resources on this site helped me navigate a situation I had no idea how to handle. I didn't feel alone anymore. That made all the difference.</p><div class="testimonial-name">— Community Survivor</div></div>
+    <div class="testimonial"><p>I came here not knowing what to expect and found an entire network of people who understood. Pure relief.</p><div class="testimonial-name">— Haven Member</div></div>
+  </div>
+  <div class="community-btns">
+    <button class="btn-primary">Join the Community</button>
+    <button class="btn-secondary">Share Your Story</button>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-text">
+    <div class="section-label">Reach Out</div>
+    <div class="section-title">We're here whenever you need us.</div>
+    <p>Whether you have a question, need to talk, or want to get involved — our team is here. You don't have to go through this alone.</p>
+    <div class="contact-detail"><span>💙</span><span>support@survivorshaven.org</span></div>
+    <div class="contact-detail"><span>📞</span><span>Crisis line: 1800-HAVEN-00</span></div>
+    <div class="contact-detail"><span>🕐</span><span>Available 24 hours, 7 days a week</span></div>
+  </div>
+  <div class="contact-form">
+    <div class="form-row">
+      <div class="form-group"><label>First Name</label><input type="text" placeholder="Your name"/></div>
+      <div class="form-group"><label>Last Name</label><input type="text" placeholder="Optional"/></div>
+    </div>
+    <div class="form-group"><label>Email</label><input type="email" placeholder="you@email.com"/></div>
+    <div class="form-group"><label>How Can We Help?</label>
+      <select>
+        <option value="">Select a topic...</option>
+        <option>I need crisis support</option>
+        <option>I'm looking for resources</option>
+        <option>I want to join the community</option>
+        <option>I want to volunteer</option>
+        <option>General enquiry</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Message</label><textarea placeholder="Share what's on your mind. This is a safe space."></textarea></div>
+    <button class="btn-submit">Send Message</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Survivors<span> Haven</span></div>
+  <p>© 2026 Survivors Haven. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Safety</a><a href="#">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
